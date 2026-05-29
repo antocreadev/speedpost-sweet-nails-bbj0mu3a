@@ -61,49 +61,21 @@
     line-height:.9;
   }
 
-  /* Chiffres laqués */
-  .lacquer-num{
-    position:relative;display:inline-block;
-    background:linear-gradient(160deg,#2a201b 0%, #15110F 40%, #4a3d33 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .lacquer-num::after{
-    content:"";position:absolute;inset:0;border-radius:6px;
-    background:linear-gradient(118deg, transparent 38%, rgba(255,255,255,.32) 48%, transparent 58%);
-    pointer-events:none;mix-blend-mode:screen;
-  }
+  /* Chiffres signature (simples, lisibles) */
+  .lacquer-num{display:inline-block;}
 
-  /* Swatch laqué du nuancier */
-  .swatch{
-    position:relative;width:54px;height:54px;border-radius:999px;
-    border:2px solid transparent;cursor:pointer;flex:0 0 auto;
-    transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    box-shadow:0 4px 12px rgba(21,17,15,.14), inset 0 -6px 12px rgba(0,0,0,.18);
-    overflow:hidden;
+  /* Nuancier : pills de filtre minimalistes */
+  .pill{
+    font-family:"Jost",sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-2);background:transparent;
+    border:1px solid var(--line);border-radius:999px;
+    padding:.52rem 1.05rem;cursor:pointer;flex:0 0 auto;white-space:nowrap;line-height:1;
+    transition:color .2s ease, border-color .2s ease, background-color .2s ease;
   }
-  .swatch::after{
-    content:"";position:absolute;left:14%;top:8%;width:46%;height:34%;
-    border-radius:999px;
-    background:radial-gradient(closest-side, rgba(255,255,255,.85), rgba(255,255,255,0));
-    pointer-events:none;
+  .pill:hover{color:var(--ink);border-color:var(--accent);}
+  .pill[aria-pressed="true"]{
+    color:var(--bg);background-color:var(--ink);border-color:var(--ink);font-weight:500;
   }
-  .swatch:hover{transform:translateY(-3px);}
-  .swatch[aria-pressed="true"]{
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px rgba(176,141,67,.22), 0 6px 16px rgba(21,17,15,.2), inset 0 -6px 12px rgba(0,0,0,.18);
-    transform:translateY(-2px);
-  }
-  .sw-label{font-family:"Jost",sans-serif;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);}
-  .swatch[aria-pressed="true"] + .sw-label{color:var(--ink);font-weight:500;}
-
-  /* fonds laqués des swatches */
-  .sw-all   {background:radial-gradient(circle at 32% 26%, #fff 0%, #d9c98f 38%, #B08D43 70%, #7d5f24 100%);}
-  .sw-french{background:radial-gradient(circle at 32% 26%, #fff 0%, #fff4f0 40%, #f3ddd4 72%, #c9a89a 100%);}
-  .sw-nude  {background:radial-gradient(circle at 32% 26%, #fff 0%, #f1ddd0 42%, #d9b39c 74%, #a87d68 100%);}
-  .sw-nacre {background:radial-gradient(circle at 32% 26%, #fff 0%, #f3f6fb 36%, #e6e0ef 64%, #c8c2d6 100%);}
-  .sw-marbre{background:radial-gradient(circle at 32% 26%, #fff 0%, #efe3c9 38%, #cdb070 70%, #8a6f33 100%);}
-  .sw-bold  {background:radial-gradient(circle at 32% 26%, #fff7f6 0%, #d6444c 36%, #8E2A33 72%, #5a1620 100%);}
-  .sw-art   {background:radial-gradient(circle at 30% 24%, #fff 0%, #f4d7c7 30%, #b98a5e 58%, #7d4f2e 80%, #3a2a1e 100%);}
 
   /* Carte galerie + reflet laqué */
   .tile{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line);
@@ -250,14 +222,14 @@
     <!-- Nuancier sticky -->
     <div class="sticky top-[68px] z-30 py-4 -mx-5 px-5 mt-8 mb-9"
          style="background:linear-gradient(180deg, var(--bg) 62%, rgba(246,242,244,0));">
-      <div class="flex gap-4 sm:gap-6 overflow-x-auto pb-1 justify-start sm:justify-center" role="group" aria-label="Filtrer par finition">
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-all" data-filter="all" aria-pressed="true" aria-label="Toutes les finitions"></button><span class="sw-label">Tout</span></div>
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-french" data-filter="french" aria-pressed="false" aria-label="French"></button><span class="sw-label">French</span></div>
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-nude" data-filter="nude" aria-pressed="false" aria-label="Nude"></button><span class="sw-label">Nude</span></div>
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-nacre" data-filter="nacre" aria-pressed="false" aria-label="Nacre et perle"></button><span class="sw-label">Nacre</span></div>
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-marbre" data-filter="marbre" aria-pressed="false" aria-label="Marbre et or"></button><span class="sw-label">Marbre&nbsp;&amp;&nbsp;Or</span></div>
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-bold" data-filter="bold" aria-pressed="false" aria-label="Bold et rouge"></button><span class="sw-label">Bold</span></div>
-        <div class="flex flex-col items-center gap-2"><button class="swatch sw-art" data-filter="art" aria-pressed="false" aria-label="Nail art"></button><span class="sw-label">Nail&nbsp;Art</span></div>
+      <div class="flex overflow-x-auto pb-1 justify-start sm:justify-center" style="gap:.6rem;" role="group" aria-label="Filtrer par finition">
+        <button class="pill" data-filter="all" aria-pressed="true">Tout</button>
+        <button class="pill" data-filter="french" aria-pressed="false">French</button>
+        <button class="pill" data-filter="nude" aria-pressed="false">Nude</button>
+        <button class="pill" data-filter="nacre" aria-pressed="false">Nacre</button>
+        <button class="pill" data-filter="marbre" aria-pressed="false">Marbre&nbsp;&amp;&nbsp;Or</button>
+        <button class="pill" data-filter="bold" aria-pressed="false">Bold</button>
+        <button class="pill" data-filter="art" aria-pressed="false">Nail&nbsp;Art</button>
       </div>
     </div>
 
@@ -562,7 +534,7 @@
   }
 
   // ---- Nuancier filtrable ----
-  const swatches = document.querySelectorAll('.swatch');
+  const swatches = document.querySelectorAll('.pill');
   const tiles = Array.from(document.querySelectorAll('#gallery .tile'));
   const emptyNote = document.getElementById('empty-note');
 
